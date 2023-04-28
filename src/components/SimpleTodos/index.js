@@ -1,6 +1,5 @@
 import {Component} from 'react'
 import TodoItem from '../TodoItem'
-
 import './index.css'
 
 const initialTodosList = [
@@ -38,38 +37,37 @@ const initialTodosList = [
   },
 ]
 
-// Write your code here
-
 class SimpleTodos extends Component {
   state = {
-    usersDetailsList: initialTodosList,
+    todoList: initialTodosList,
   }
 
-  deleteUser = id => {
-    const {usersDetailsList} = this.state
-    const filteredUsersData = usersDetailsList.filter(each => each.id !== id)
+  deleteTodo = id => {
+    const {todoList} = this.state
+    const updatedTodosList = todoList.filter(eachTodo => eachTodo.id !== id)
 
     this.setState({
-      usersDetailsList: filteredUsersData,
+      todoList: updatedTodosList,
     })
   }
 
   render() {
-    const {usersDetailsList} = this.state
+    const {todoList} = this.state
 
     return (
-      <div className="bg-container">
-        <h1 className="title">Simple Todos</h1>
-
-        <ul className="list-container">
-          {usersDetailsList.map(eachUser => (
-            <TodoItem
-              userDetails={eachUser}
-              key={eachUser.id}
-              deleteUser={this.deleteUser}
-            />
-          ))}
-        </ul>
+      <div className="simple-todos-app-container">
+        <div className="simple-todos-container">
+          <h1 className="heading">Simple Todos</h1>
+          <ul className="todos-list">
+            {todoList.map(eachTodo => (
+              <TodoItem
+                key={eachTodo.id}
+                todoDetails={eachTodo}
+                deleteTodo={this.deleteTodo}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
     )
   }
